@@ -8,6 +8,7 @@ import 'pages/loading.dart';
 import 'pages/onboarding.dart';
 import 'pages/readnewstask.dart';
 import 'pages/reward.dart';
+import 'pages/profile.dart'; // Import the new profile page
 
 // State Management
 class AppState extends ChangeNotifier {
@@ -56,7 +57,9 @@ class AppState extends ChangeNotifier {
       _balance += _dailyTasks[taskIndex].reward;
 
       // Check if task can unlock next reward level
-      if (_balance >= _rewardLevels[_userLevel].minimumEarnings) {
+      // Fix: Check current level and compare balance to the next level's minimum earnings
+      if (_userLevel < _rewardLevels.length - 1 &&
+          _balance >= _rewardLevels[_userLevel].minimumEarnings) {
         _unlockNextLevel();
       }
 
@@ -67,7 +70,7 @@ class AppState extends ChangeNotifier {
   void _unlockNextLevel() {
     if (_userLevel < _rewardLevels.length - 1) {
       _userLevel++;
-      _rewardLevels[_userLevel].isUnlocked = true;
+      _rewardLevels[_userLevel - 1].isUnlocked = true;
     }
   }
 
@@ -140,6 +143,7 @@ class CoinBoostApp extends StatelessWidget {
         '/read-news-rules': (context) => ReadNewsRulesScreen(),
         '/read-news-task': (context) => ReadNewsTaskScreen(),
         '/rewarding-levels': (context) => RewardingLevelsScreen(),
+        '/profile': (context) => ProfileScreen(), // Add the profile route
       },
     );
   }

@@ -215,7 +215,7 @@ class _ReadNewsTaskScreenState extends State<ReadNewsTaskScreen> {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Text(
-                      '396 × 758',
+                      '',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

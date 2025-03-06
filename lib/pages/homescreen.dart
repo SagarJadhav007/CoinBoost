@@ -1,7 +1,9 @@
+import 'package:coin_buddy/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../main.dart';
 import 'newsrules.dart';
+import 'reward.dart'; // Import for task navigation
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -194,10 +196,22 @@ class HomeScreen extends StatelessWidget {
               // Stay on home
               break;
             case 1:
-              // Navigate to tasks
+              // Navigate to tasks (Rewarding Levels screen)
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RewardingLevelsScreen(),
+                ),
+              );
               break;
             case 2:
               // Navigate to profile
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(),
+                ),
+              );
               break;
           }
         },
@@ -206,7 +220,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Updated TaskCard to match prototype
+// Updated TaskCard to match prototype and fix overflow
 class TaskCard extends StatelessWidget {
   final String title;
   final String description;
@@ -235,12 +249,12 @@ class TaskCard extends StatelessWidget {
           padding: EdgeInsets.all(12),
           child: Row(
             children: [
-              // Left section with image
+              // Left section with image - reduced fixed width to prevent overflow
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
                   imageAsset,
-                  width: 80,
+                  width: 60, // Reduced from 80 to prevent overflow
                   height: 60,
                   fit: BoxFit.cover,
                 ),
@@ -258,6 +272,8 @@ class TaskCard extends StatelessWidget {
                         color: Colors.black87,
                         fontSize: 14,
                       ),
+                      maxLines: 2, // Limit lines to prevent overflow
+                      overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 4),
                     Text(
@@ -266,10 +282,13 @@ class TaskCard extends StatelessWidget {
                         color: Colors.grey,
                         fontSize: 12,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
               ),
+              SizedBox(width: 8), // Added spacing before reward
               // Right section with reward
               Text(
                 reward,
