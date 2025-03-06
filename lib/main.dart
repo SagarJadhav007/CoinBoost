@@ -1,3 +1,4 @@
+import 'package:coin_buddy/pages/newsrules.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -126,13 +127,17 @@ class CoinBoostApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+        ),
       ),
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/onboarding': (context) => OnboardingScreen(),
         '/home': (context) => HomeScreen(),
-        //'/read-news-rules': (context) => ReadNewsRulesScreen(),
+        '/read-news-rules': (context) => ReadNewsRulesScreen(),
         '/read-news-task': (context) => ReadNewsTaskScreen(),
         '/rewarding-levels': (context) => RewardingLevelsScreen(),
       },
@@ -140,7 +145,7 @@ class CoinBoostApp extends StatelessWidget {
   }
 }
 
-// Bottom Navigation Bar Widget
+// Bottom Navigation Bar Widget - updated to match prototype
 class CoinBoostBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int>? onTap;

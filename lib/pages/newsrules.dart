@@ -1,6 +1,5 @@
-import 'package:coin_buddy/main.dart';
 import 'package:flutter/material.dart';
-import 'package:coin_buddy/pages/readnewstask.dart';
+import 'readnewstask.dart';
 
 class ReadNewsRulesScreen extends StatelessWidget {
   @override
@@ -19,30 +18,43 @@ class ReadNewsRulesScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Image.asset(
-              'assets/news_reading.png', // Add this image to your assets
-              height: 200,
-              fit: BoxFit.contain,
+            // News reading image - matches prototype
+            Container(
+              height: 140,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Image.asset(
+                'assets/news_reading.png',
+                fit: BoxFit.contain,
+              ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 32),
+
+            // Rules title and list - matches prototype
             Text(
               'Rules of Task',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.orange,
+                color: Colors.black87,
               ),
             ),
-            SizedBox(height: 10),
-            RuleItem(number: '1', text: 'Keep scrolling for 10 minutes'),
-            RuleItem(number: '2', text: 'Keep clicking every 30 seconds'),
-            RuleItem(
-                number: '3',
-                text: 'Don\'t leave still screen for more than 30 seconds'),
+            SizedBox(height: 16),
+
+            // Numbered rules with circles - matches prototype
+            buildRuleItem('1', 'Keep scrolling for 10 minutes'),
+            buildRuleItem('2', 'Keep clicking every 30 seconds'),
+            buildRuleItem(
+                '3', 'Don\'t leave still screen for more than 30 seconds'),
+
             Spacer(),
+
+            // Start Task button - matches prototype
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(
+                Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ReadNewsTaskScreen(),
                   ),
@@ -51,11 +63,14 @@ class ReadNewsRulesScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
                 padding: EdgeInsets.symmetric(vertical: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
               child: Text(
                 'Start Task',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -63,8 +78,16 @@ class ReadNewsRulesScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: CoinBoostBottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1, // Tasks tab
+        backgroundColor: Colors.orange,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white54,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.layers), label: 'Tasks'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
         onTap: (index) {
           switch (index) {
             case 0:
@@ -81,25 +104,17 @@ class ReadNewsRulesScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-class RuleItem extends StatelessWidget {
-  final String number;
-  final String text;
-
-  const RuleItem({Key? key, required this.number, required this.text})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  // Helper method for building rule items - matches prototype style
+  Widget buildRuleItem(String number, String text) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.only(bottom: 12.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 30,
-            height: 30,
+            width: 24,
+            height: 24,
             decoration: BoxDecoration(
               color: Colors.orange,
               shape: BoxShape.circle,
@@ -110,6 +125,7 @@ class RuleItem extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
+                  fontSize: 14,
                 ),
               ),
             ),
